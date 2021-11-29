@@ -45,19 +45,33 @@ void keyboardMatrix(int** a, int& size)
 				cout << "a[" << i << "][" << j << "]: ";
 			}
 		}
+
+	cout << "Матрица смежности размера " << size << " сформирована с клавиатуры" << endl;
+	show(a, size);
 }
 
 void fileMatrix(int** a, int& size)
 {
 	fstream file;
 	file.open("input.txt", ios::in);
-	file >> size;
+	if(!(file.is_open()))
+	{
+		cout<<"Ошибка! Файл не найдено!" << endl;
+	}
 
-	for (int i = 0; i < size; i++)
-		for (int j = 0; j < size; j++)
-		{
-			file >> a[i][j];
-		}
+	else
+	{
+		file >> size;
+
+		for (int i = 0; i < size; i++)
+			for (int j = 0; j < size; j++)
+			{
+				file >> a[i][j];
+			}
+
+		cout << "Матрица смежности размера " << size << " считана с файла" << endl;
+		show(a, size);
+	}
 }
 
 void rndMatrix(int** a, int& size)
@@ -82,6 +96,8 @@ void rndMatrix(int** a, int& size)
 			}
 		}
 	}
+	cout<<"Матрица смежности размера "<<size<<" сгенерирована" << endl;
+	show(a, size);
 }
 
 void twoPointShortWay(int** a)
@@ -138,28 +154,36 @@ void main()
 		switch (sw)
 		{
 		case 0:
+			system("cls");
 			cout << "Ну пока :(" << endl;
 			t = false;
 			break;
 		case 1:
+			system("cls");
 			keyboardMatrix(a, size);
 			shortWay(a, size);
 			break;
 		case 2:
+			system("cls");
 			fileMatrix(a, size);
 			shortWay(a, size);
 			break;
 		case 3:
+			system("cls");
 			rndMatrix(a, size);
 			shortWay(a, size);
 			break;
 		case 4:
+			system("cls");
+			cout<<"Матрица кратчайших путей" << endl;
 			show(a, size);
 			break;
 		case 5:
+			system("cls");
 			twoPointShortWay(a);
 			break;
 		}
 	}
+	
 	system("pause");
 }
